@@ -36,7 +36,7 @@ void setup() {
 void loop() {
   readValue = ultrasonic.Ranging(CM);//return the distance in CM
 
-  lcd.setCursor(15,3);
+    lcd.setCursor(15,3);
   lcd.print("    ");
   delay(10);
 
@@ -64,9 +64,8 @@ void loop() {
       Serial.print(distance);
       Serial.println("CM"); 
 
-      lcd.clear();
-      lcd.setCursor(15,1);
-      
+
+      clearDisplay();
       lcd.setCursor(14,1);
       lcd.print(area);    
       lcd.setCursor(17,1);
@@ -82,7 +81,7 @@ void loop() {
       Serial.print(distance);
       Serial.println("CM"); 
 
-      lcd.clear();
+      clearDisplay();
       lcd.setCursor(14,2);
       lcd.print(perimetro);    
       lcd.setCursor(17,2);
@@ -93,6 +92,18 @@ void loop() {
   delay(500);
 }
 
-
+void clearDisplay(){
+  lcd.clear();
+  lcd.setCursor(1,0);
+  lcd.print("Trena Digital");
+  lcd.setCursor(15,0);
+  lcd.print("IEEE");
+  lcd.setCursor(3,1);
+  lcd.print("Area:");
+  lcd.setCursor(3,2);
+  lcd.print("Perimetro:");
+  lcd.setCursor(3,3);
+  lcd.print("Medida:");
+}
 
 
