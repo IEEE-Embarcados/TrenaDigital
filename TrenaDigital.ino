@@ -10,9 +10,13 @@ int perimetro = 0;
 int area = 1;
 
 int inputMode = 12;
-int btnReadDist = 13;
 int inputModeState=0;
+
+int btnReadDist = 13;
 int btnReadState=0;
+
+int btnClearValues = 5;
+int clearValuesState=0;
 
 void setup() {
   lcd.begin(20,4);
@@ -29,6 +33,7 @@ void setup() {
 
   pinMode(inputMode, INPUT_PULLUP);
   pinMode(btnReadDist, INPUT_PULLUP);
+  pinMode(btnClearValues, INPUT_PULLUP);
 
   Serial.begin(9600); //serial comumnication 9600 bauds rates.
 }
@@ -36,7 +41,7 @@ void setup() {
 void loop() {
   readValue = ultrasonic.Ranging(CM);//return the distance in CM
 
-    lcd.setCursor(15,3);
+  lcd.setCursor(15,3);
   lcd.print("    ");
   delay(10);
 
@@ -49,6 +54,7 @@ void loop() {
   //Resolver a medida;
   inputModeState = digitalRead(inputMode);
   btnReadState = digitalRead(btnReadDist);
+  clearValuesState = digitalRead(btnClearValues);
 
   if(btnReadState == LOW){
     Serial.println("____________________________________________________");
@@ -87,8 +93,15 @@ void loop() {
       lcd.setCursor(17,2);
       lcd.print("cm");    
     }
-    delay(100);
+    delay(10);
   }
+  
+  if(clearValuesState == LOW){
+    distance = 0;
+    area = 1;
+    perimetro = 0;
+  }
+  
   delay(500);
 }
 
@@ -105,5 +118,6 @@ void clearDisplay(){
   lcd.setCursor(3,3);
   lcd.print("Medida:");
 }
+
 
 
